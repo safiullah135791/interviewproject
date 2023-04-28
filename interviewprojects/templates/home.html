@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery/jquery-3.5.0.min.js' %}"></script>
+
+    <title>Interview Project</title>
+  </head>
+  <body>
+
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" role="alert" style="margin-top:30px;">
+      {{message}}
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }}">
+      {{message}}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+    {% if user.is_authenticated %}
+  
+    <div class="container-fluid">
+    <div class="col-md-offset-2 col-md-8"> 
+    <form action="/addData" method="POST" autocomplete="off">
+      {% csrf_token %}
+      <h4 class="page-header text-primary text-center">Welcome to Interview Project</h4>
+        <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">Date</th>
+            <th>Today</th>
+            <th colspan="4" class="text-center" style="background-color: rgba(34, 24, 56, .2);color: #fff;">Show Timings</th>
+          </tr>
+          <tr>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">Hall Name</th>
+            <th>Triber 1</th>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">10:00 AM</th>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">2:00 PM</th>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">6:00 PM</th>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">10:00 PM</th>
+            <th style="background-color: rgba(34, 24, 56, .2);color: #fff;">Total</th>
+          </tr>
+          <tr>
+            <th colspan="2" style="background-color: rgba(34, 24, 56, .2);color: #fff;">No Visitors</th>
+            <td><input type="number" name="input1" min="1" value="0" id="input1" class="form-control" onchange="add();"></td>
+            <td><input type="number" name="input2" min="1" value="0" id="input2" class="form-control" onchange="add();"></td>
+            <td><input type="number" name="input3" min="1" value="0" id="input3" class="form-control" onchange="add();"></td>
+            <td><input type="number" name="input4" min="1" value="0" id="input4" class="form-control" onchange="add();"></td>
+            <td><input type="text"   name="input5" id="input5" class="form-control"></td>
+          </tr>
+          <tr>
+            <th colspan="2" style="background-color: rgba(34, 24, 56, .2);color: #fff;">Total collection of Rupess</th>
+            <td><input type="number" name="input6" min="1" value="0" id="input6" class="form-control" onchange="add1()"></td>
+            <td><input type="number" name="input7" min="1" value="0" id="input7" class="form-control" onchange="add1()"></td>
+            <td><input type="number" name="input8" min="1" value="0" id="input8" class="form-control" onchange="add1()"></td>
+            <td><input type="number" name="input9" min="1" value="0" id="input9" class="form-control" onchange="add1()"></td>
+            <td><input type="text"   name="input10" id="input10" class="form-control"></td>
+            </tr>
+        </thead>
+      </table>
+    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+    <div class="form-group pull-right">
+      <input type="submit" value="Submit" class="btn btn-primary">
+      <input type="reset" value="Clear" class="btn btn-danger">
+    </div>
+  </form>
+  </div>
+</div>
+    {% else %}
+    <h4>Welcome to Spritle Project</h4>
+    <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>  
+    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>  
+   {% endif %}
+  </body>
+  <script src="{% static 'script.js' %}"></script>
+</html>
+
+<script>
+  $(document).ready(function(){
+    $(".alert").hide(4000);
+  });
+</script>
